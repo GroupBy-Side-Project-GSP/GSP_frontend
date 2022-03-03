@@ -5,14 +5,9 @@ export const flexCenter = css`
   align-items: center;
   justify-content: center;
 `;
-export const margins = {
-  sm: '.5rem',
-  base: '1rem',
-  lg: '2rem',
-  xl: '3rem',
-};
 
-export const paddings = {
+// font랑 margin은 아직 디자인에 맞게 수정 안한 상태입니다
+export const margins = {
   sm: '.5rem',
   base: '1rem',
   lg: '2rem',
@@ -38,6 +33,7 @@ export const fonts = {
   },
 };
 
+// 웹 디자인 컬러 올려주시면 거기에 맞게 수정해야 합니다
 export const theme: DefaultTheme = {
   color: {
     Main_lighten: '#bd98ff',
@@ -64,13 +60,33 @@ export const Button = styled.div`
   font-size: 1.5rem;
 `;
 
+const calculateMargin = (
+  gap: string,
+  direction: 'row' | 'column' | 'column-reverse'
+) => {
+  if (direction === 'row') return `margin-left: ${gap}`;
+  if (direction === 'column') return `margin-top: ${gap}`;
+  if (direction === 'column-reverse') return `margin-bottom: ${gap}`;
+  return '';
+};
+
+export const gap = (
+  gapLength: string,
+  direction: 'row' | 'column' | 'column-reverse'
+) => {
+  return css`
+    & > * + * {
+      ${calculateMargin(gapLength, direction)}
+    }
+  `;
+};
+
 export const size = {
   mobile: '425px',
   tablet: '768px',
   desktop: '1440px',
 };
 
-// 미디어 쿼리의 중복 코드를 줄이기 위해 정의된 변수
 export const device = {
   mobile: `@media only screen and (max-width: ${size.mobile})`,
   tablet: `@media only screen and (max-width: ${size.tablet})`,
