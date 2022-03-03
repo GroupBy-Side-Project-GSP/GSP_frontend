@@ -3,6 +3,9 @@ import { createGlobalStyle } from 'styled-components';
 import './reset.scss';
 import { theme } from './theme';
 
-// export const GlobalStyle = createGlobalStyle
-
-// global 스타일 선언
+export const GlobalStyle = createGlobalStyle`
+    html {
+        font-size: 62.5%;
+        color: ${theme.color.black};
+    }
+`;
