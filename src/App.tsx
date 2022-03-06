@@ -10,12 +10,12 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/auth/login" element={<Loginpage />} />
-        {/* -- 아래 페이지들은 개발 중입니다
+        {/*
         <Route path="/find/login" element={<FindIdandPwpage />} />
         <Route path="/find/id" element={<FindIdpage />} />
         <Route path="/find/pw" element={<FindPWpage />} />
-        <Route path="/auth/register" element={<Registerpage />} />
         */}
+        <Route path="/auth/register" element={<Registerpage />} />
       </Routes>
     </Router>
   );
