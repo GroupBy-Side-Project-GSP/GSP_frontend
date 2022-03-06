@@ -1,16 +1,16 @@
 import React from 'react';
-import Login from '../component/Login/Login';
+import Register from '../../component/Auth/Register';
 import styled from 'styled-components';
 
-const Loginpage = () => {
+const Registerpage = () => {
   return (
     <Wrapper>
-      <Login />
+      <Register />
     </Wrapper>
   );
 };
 
-export default Loginpage;
+export default Registerpage;
 
 const Wrapper = styled.div`
   display: flex;

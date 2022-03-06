@@ -25,10 +25,10 @@ export default RightAlignedLink;
 const Aligner = styled.div`
   text-align: right;
   display: flex;
-  margin-top: 1rem;
+  margin-top: 2rem;
   .styled-link {
     color: ${theme.color.medium_gray};
-    font-size: 14px;
+    font-size: 1.6rem;
     display: flex;
     border-bottom: 1px solid ${theme.color.medium_gray};
     &:hover {

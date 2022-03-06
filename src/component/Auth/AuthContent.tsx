@@ -11,8 +11,8 @@ const AuthContent = ({ title }: { title: string }) => (
 export default AuthContent;
 
 const Title = styled.div`
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: bold;
   color: ${theme.color.dark_gray};
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
