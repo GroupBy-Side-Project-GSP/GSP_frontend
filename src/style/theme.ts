@@ -72,7 +72,7 @@ const calculateMargin = (
 
 export const gap = (
   gapLength: string,
-  direction: 'row' | 'column' | 'column-reverse'
+  direction: 'row' | 'column' | 'column-reverse' = 'row' // 디폴트는 row
 ) => {
   return css`
     & > * + * {
