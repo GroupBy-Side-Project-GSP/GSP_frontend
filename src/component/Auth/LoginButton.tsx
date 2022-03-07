@@ -1,27 +1,34 @@
-import React from 'react';
-import { theme } from '../../style/theme';
+import { theme, flexCenter } from '../../style/theme';
 import styled from 'styled-components';
 
-const LoginButton = ({ children, ...rest }: { children: string }) => {
-  return <Wrapper type="submit" value={children} {...rest} />;
+const LoginButton = ({
+  value,
+  isDisabled,
+}: {
+  value: string;
+  isDisabled: boolean;
+}) => {
+  return <Wrapper disabled={isDisabled} type="submit" value={value} />;
 };
 
 export default LoginButton;
 
 const Wrapper = styled.input`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
+  ${flexCenter}
+  width: 58rem;
   border-radius: 5px;
   cursor: pointer;
-  height: 40px;
-  margin-top: 1rem;
+  height: 7rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
   background: ${theme.color.Main};
   color: white;
-  height: ${(props) => props.height};
+  font-size: 1.6rem;
   &:hover {
-    background: ${theme.color.Main_lighten};
+    background: ${theme.color.Main};
     color: white;
+  }
+  &:disabled {
+    background: ${theme.color.Main_lighten};
   }
 `;
