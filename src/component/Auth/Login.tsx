@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { AuthContent, RightAlignedLink, RegisterButton } from '.';
-import { theme, flexCenter, gap } from '../../style/theme';
+import { AuthContent, RightAlignedLink, RegisterButton, LoginButton } from '.';
+import { theme, flexCenter, inputForm, inputlabel } from '../../style/theme';
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState({
@@ -10,8 +10,7 @@ const Login = () => {
     visible: false,
   });
 
-  // password type 변경하는 함수
-  const handlePasswordType = (e) => {
+  const handlePasswordType = () => {
     setPasswordType(() => {
       if (!passwordType.visible) {
         return { type: 'text', visible: true };
@@ -36,13 +35,14 @@ const Login = () => {
     mode: 'onSubmit',
     defaultValues: initValue,
   });
-  const password = useRef();
-  password.current = watch('pw'); // pw 관찰
+  const password = useRef<string>();
+  password.current = watch('pw');
   // 데이터 전송시 작동할 함수
   const onSubmit = (data: Form) => {
     console.log(data);
   };
   console.log(watch());
+  // console.log(!errors.id, !errors.pw);
   return (
     <Wrapper>
       <AuthContent title="로그인" />
@@ -89,7 +89,10 @@ const Login = () => {
           {errors.pw && <SubmitMessage>{errors.pw.message}</SubmitMessage>}
           <span onClick={handlePasswordType} />
         </InputWrapper>
-        <LoginButton type="submit" value="로그인" />
+        <LoginButton
+          isDisabled={!errors.id && !errors.pw ? false : true}
+          value="로그인"
+        />
         <RegisterButton to="auth/register">회원가입</RegisterButton>
       </form>
       <RightAlignedLink to="find/login">
@@ -101,23 +104,6 @@ const Login = () => {
 
 export default Login;
 
-const LoginButton = styled.input`
-  ${flexCenter}
-  width: 58rem;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 7rem;
-  margin-top: 2rem;
-  background: ${theme.color.Main};
-  color: white;
-  height: ${(props) => props.height};
-  font-size: 1.6rem;
-  &:hover {
-    background: ${theme.color.Main_lighten};
-    color: white;
-  }
-`;
-
 const Wrapper = styled.div`
   ${flexCenter}
   width: 58rem;
@@ -128,16 +114,13 @@ const Wrapper = styled.div`
     text-align: center;
     font-size: 2rem;
     line-height: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
+  }
+  .label {
+    ${inputlabel}
   }
   & + & {
     margin: 3rem;
-  }
-  .label {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    color: ${theme.color.dark_gray};
   }
 `;
 
@@ -153,14 +136,5 @@ const SubmitMessage = styled.div`
 `;
 
 const Input = styled.input`
-  width: 58rem;
-  border: 0;
-  border-bottom: 1px solid #e0e0e0;
-  outline: none;
-  border-radius: 0px;
-  line-height: 2.5rem;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  ${inputForm}
 `;
