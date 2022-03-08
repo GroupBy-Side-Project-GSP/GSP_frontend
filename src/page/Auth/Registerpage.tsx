@@ -1,5 +1,4 @@
-import React from 'react';
-import Register from '../../component/Auth/Register';
+import { Register } from '../../component/Auth/.';
 import styled from 'styled-components';
 
 const Registerpage = () => {

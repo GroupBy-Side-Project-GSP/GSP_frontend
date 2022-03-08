@@ -6,6 +6,31 @@ export const flexCenter = css`
   justify-content: center;
 `;
 
+export const inputlabel = css`
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #9e9e9e;
+`;
+
+export const inputForm = css`
+  width: 58rem;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+  outline: none;
+  padding-bottom: 1rem;
+  border-radius: 0px;
+  line-height: 2.5rem;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  margin-bottom: 1.8rem;
+  ::placeholder {
+    color: #e0e0e0;
+  }
+  &.error {
+    border-bottom: 1px solid red;
+  }
+`;
 // font랑 margin은 아직 디자인에 맞게 수정 안한 상태입니다
 export const margins = {
   sm: '.5rem',

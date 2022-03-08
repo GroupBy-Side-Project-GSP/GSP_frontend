@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { theme, flexCenter } from '../../style/theme';
 import styled from 'styled-components';
@@ -33,7 +32,7 @@ const Wrapper = styled.div`
   color: black;
   font-size: 1.4rem;
   &:hover {
-    background: ${theme.color.Main_lighten};
+    background: ${theme.color.Main};
     color: white;
   }
 `;

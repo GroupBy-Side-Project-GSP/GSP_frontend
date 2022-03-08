@@ -1,24 +1,19 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { flexCenter, theme } from '../../style/theme';
-import { AuthContent } from '.';
+import { flexCenter, theme, inputForm, inputlabel } from '../../style/theme';
+import { AuthContent, LoginButton } from '.';
 import usePassword from '../../hooks/usePassword';
 
 const Register = () => {
-  const [isEmailError, setIsEmailError] = useState(false);
-
-  // hooks
   const [passwordType, handlePasswordType] = usePassword({
     type: 'password',
     visible: false,
   });
-
   const [passwordConfirmType, handlePasswordConfirmType] = usePassword({
     type: 'password',
     visible: false,
   });
-
   interface Form {
     email: string;
     id: string;
@@ -31,7 +26,6 @@ const Register = () => {
     pw: '',
     pwConfirm: '',
   };
-
   const {
     handleSubmit,
     register,
@@ -41,14 +35,11 @@ const Register = () => {
     mode: 'onSubmit',
     defaultValues: initValue,
   });
-  const password = useRef();
-  const email = useRef();
-  password.current = watch('pw'); // pw 관찰
-  // 데이터 전송시 작동할 함수
+  const password = useRef<string>();
+  password.current = watch('pw');
   const onSubmit = (data: Form) => {
     console.log(data);
   };
-  console.log(watch());
 
   return (
     <Wrapper>
@@ -57,8 +48,8 @@ const Register = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
           <div className="label">이메일</div>
-          <input
-            className={isEmailError ? 'error' : 'correct'}
+          <Input
+            className={errors.email ? 'error' : ''}
             placeholder="abcdefg@naver.com"
             {...register('email', {
               required: '이메일을 입력해주세요.',
@@ -68,6 +59,7 @@ const Register = () => {
               },
             })}
           />
+          <button className="email-auth">인증</button>
           {errors.email && (
             <SubmitMessage>{errors.email.message}</SubmitMessage>
           )}
@@ -75,6 +67,7 @@ const Register = () => {
         <InputWrapper>
           <div className="label">아이디</div>
           <Input
+            className={errors.id ? 'error' : ''}
             placeholder="아이디"
             {...register('id', {
               required: '아이디를 입력해주세요.',
@@ -90,6 +83,7 @@ const Register = () => {
         <InputWrapper>
           <div className="label">비밀번호</div>
           <Input
+            className={errors.pw ? 'error' : ''}
             type={passwordType.type}
             placeholder="영문, 숫자를 혼용하여 8~16자를 입력해주세요"
             {...register('pw', {
@@ -114,11 +108,12 @@ const Register = () => {
         <InputWrapper>
           <div className="label">비밀번호 확인</div>
           <Input
+            className={errors.pwConfirm ? 'error' : ''}
             type={passwordConfirmType.type}
             placeholder="비밀번호 확인"
             {...register('pwConfirm', {
               required: '비밀번호를 적어주세요',
-              validate: (value) => value === password.current, // 콜백 함수 넘겨줌
+              validate: (value) => value === password.current,
             })}
           />
           {errors.pwConfirm && errors.pwConfirm.type == 'validate' && (
@@ -126,8 +121,14 @@ const Register = () => {
           )}
           <span onClick={handlePasswordConfirmType} />
         </InputWrapper>
-
-        <RegisterButton type="submit" value="회원가입" />
+        <LoginButton
+          value="다음"
+          isDisabled={
+            !errors.id && !errors.pw && !errors.email && !errors.pwConfirm
+              ? false
+              : true
+          }
+        />
       </form>
     </Wrapper>
   );
@@ -143,14 +144,12 @@ const Wrapper = styled.div`
     ${flexCenter}
     color: #bdbdbd;
     font-size: 2rem;
+    margin-top: 2rem;
     margin-bottom: 3rem;
     text-align: center;
   }
   .label {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    color: #9e9e9e;
+    ${inputlabel}
   }
   & + & {
     margin: 5rem;
@@ -158,16 +157,7 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-  width: 58rem;
-  border: 0;
-  border-bottom: 1px solid #e0e0e0;
-  outline: none;
-  border-radius: 0px;
-  line-height: 2.5rem;
-  font-size: 1.4rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  margin-bottom: 1.8rem;
+  ${inputForm}
 `;
 
 const SubmitMessage = styled.div`
@@ -177,45 +167,17 @@ const SubmitMessage = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  input {
-    width: 58rem;
-    border: 0;
-    border-bottom: 1px solid #e0e0e0;
-    outline: none;
-    border-radius: 0px;
-    line-height: 2.5rem;
-    font-size: 1.4rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin-bottom: 1.8rem;
-    &.error {
-      border-bottom: 1px solid red;
-    }
-    &.correct {
-      border-bottom: 1px solid green;
-    }
-  }
-
-  .input-error {
+  position: relative;
+  .email-auth {
+    position: absolute;
+    right: 0;
+    width: 7rem;
+    height: 3.4rem;
+    color: ${theme.color.Main};
+    border-radius: 7px;
+    border: 2px solid ${theme.color.Main};
   }
   & + & {
     margin-top: 1rem;
-  }
-`;
-
-const RegisterButton = styled.input`
-  ${flexCenter}
-  width: 58rem;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 40px;
-  margin-top: 1rem;
-  background: ${theme.color.Main};
-  color: white;
-  height: 7rem;
-  font-size: 14px;
-  &:hover {
-    background: grey;
-    color: white;
   }
 `;
