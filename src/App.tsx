@@ -6,6 +6,7 @@ import FindPwpage from './page/Auth/FindPwpage';
 import MainPage from './page/MainPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GlobalStyle } from './style/globalStyle';
+import CompanyPage from './page/CompanyPage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/find/pw" element={<FindPwpage />} />
           <Route path="/auth/register" element={<Registerpage />} />
           <Route path="/main" element={<MainPage />} />
+          <Route path="/company" element={<CompanyPage />} />
         </Routes>
       </Router>
     </>
